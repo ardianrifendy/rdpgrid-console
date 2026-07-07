@@ -38,7 +38,6 @@ export default function OnboardingModal() {
   };
 
   const handleSkip = () => {
-    // Directly finish with default user or empty
     const finalName = tempName.trim() || "User";
     setUsername(finalName);
     localStorage.setItem("rdpgrid_onboarded", "true");
@@ -46,40 +45,40 @@ export default function OnboardingModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0e1016]/75 backdrop-blur-md p-4 animate-fade-in">
       {/* Main Card */}
-      <div className="w-full max-w-md bg-panel border border-line rounded-2xl p-6 shadow-2xl flex flex-col animate-rise relative overflow-hidden">
+      <div className="w-full max-w-md bg-[#161a23] border border-[#252b38] rounded-2xl p-8 shadow-[0_20px_50px_rgba(0,0,0,0.65)] flex flex-col animate-rise relative">
         
         {/* Glow effect in background */}
-        <div className="absolute -top-12 -left-12 w-32 h-32 bg-signal/15 rounded-full blur-2xl pointer-events-none"></div>
-        <div className="absolute -bottom-12 -right-12 w-32 h-32 bg-signal/15 rounded-full blur-2xl pointer-events-none"></div>
+        <div className="absolute -top-12 -left-12 w-36 h-36 bg-signal/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute -bottom-12 -right-12 w-36 h-36 bg-signal/10 rounded-full blur-3xl pointer-events-none"></div>
 
         {step === 1 ? (
           <div className="flex flex-col items-center text-center">
-            {/* Logo */}
-            <div className="logo h-14 w-14 rounded-xl bg-signal/10 flex items-center justify-center border border-signal/20 mb-4 shadow-[0_0_20px_rgba(var(--signal-rgb),0.1)]">
-              <svg viewBox="0 0 24 24" fill="none" stroke="var(--signal)" strokeWidth="2.2" className="h-7 w-7">
+            {/* Unique onboarding-logo div to prevent global .logo conflict */}
+            <div className="h-16 w-16 rounded-2xl bg-signal/10 flex items-center justify-center border border-signal/25 mb-5 shadow-[0_0_24px_rgba(124,140,255,0.15)]">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--signal)" strokeWidth="2.2" className="h-8 w-8">
                 <path d="M4 7h16M4 12h16M4 17h16M8 4v16M16 4v16"/>
               </svg>
             </div>
 
             {/* Brand Title */}
-            <h1 className="text-2xl font-bold font-sans text-txt tracking-tight">
+            <h1 className="text-[26px] font-bold font-sans text-txt tracking-tight leading-none mb-2">
               BTG.AI Console
             </h1>
             
             {/* Credit developer */}
-            <p className="text-xs text-signal font-semibold tracking-wider uppercase mt-1.5 mb-6">
+            <p className="text-[11px] text-signal font-semibold tracking-widest uppercase mb-7">
               Developed by Rifendy Ardian
             </p>
 
             {/* Form */}
-            <div className="field w-full text-left mb-6">
-              <label className="block text-xs font-semibold text-txt-dim uppercase tracking-wider mb-2">
+            <div className="field w-full text-left mb-7">
+              <label className="block text-[10.5px] font-bold font-mono text-txt-dim uppercase tracking-wider mb-2">
                 Siapa nama Anda?
               </label>
               <input 
-                className="inp w-full" 
+                className="inp w-full focus:border-signal focus:ring-2 focus:ring-signal-soft" 
                 type="text"
                 placeholder="Masukkan nama sapaan Anda..." 
                 maxLength={24}
@@ -92,10 +91,10 @@ export default function OnboardingModal() {
               />
             </div>
 
-            {/* CTA */}
+            {/* CTA Button using core classes */}
             <button 
               onClick={handleNext}
-              className="btn primary w-full flex items-center justify-center gap-1 cursor-pointer font-semibold py-2.5 rounded-lg"
+              className="btn primary full flex items-center justify-center gap-1.5 font-semibold cursor-pointer"
             >
               Lanjut
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="h-4 w-4">
@@ -113,9 +112,9 @@ export default function OnboardingModal() {
             </p>
 
             {/* Guideline list */}
-            <div className="flex flex-col gap-4 mb-8">
-              <div className="flex items-start gap-3">
-                <div className="h-7 w-7 rounded-lg bg-panel-2 border border-line flex items-center justify-center flex-none text-sm">
+            <div className="flex flex-col gap-4.5 mb-8">
+              <div className="flex items-start gap-3.5">
+                <div className="h-8 w-8 rounded-xl bg-panel-2 border border-line flex items-center justify-center flex-none text-base">
                   🤖
                 </div>
                 <div>
@@ -126,20 +125,20 @@ export default function OnboardingModal() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
-                <div className="h-7 w-7 rounded-lg bg-panel-2 border border-line flex items-center justify-center flex-none text-sm">
+              <div className="flex items-start gap-3.5">
+                <div className="h-8 w-8 rounded-xl bg-panel-2 border border-line flex items-center justify-center flex-none text-base">
                   ⌨️
                 </div>
                 <div>
                   <h3 className="text-xs font-bold text-txt">Navigasi Input</h3>
                   <p className="text-[11px] text-txt-dim leading-normal mt-0.5">
-                    Tekan <kbd className="px-1 py-0.5 bg-line-2 rounded text-[10px] font-mono text-txt">Enter</kbd> untuk mengirim pesan, dan <kbd className="px-1 py-0.5 bg-line-2 rounded text-[10px] font-mono text-txt">Shift + Enter</kbd> untuk membuat baris baru.
+                    Tekan <kbd className="px-1.5 py-0.5 bg-[#252b38] rounded text-[10px] font-mono text-txt">Enter</kbd> untuk mengirim pesan, dan <kbd className="px-1.5 py-0.5 bg-[#252b38] rounded text-[10px] font-mono text-txt">Shift + Enter</kbd> untuk membuat baris baru.
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
-                <div className="h-7 w-7 rounded-lg bg-panel-2 border border-line flex items-center justify-center flex-none text-sm">
+              <div className="flex items-start gap-3.5">
+                <div className="h-8 w-8 rounded-xl bg-panel-2 border border-line flex items-center justify-center flex-none text-base">
                   🖼️
                 </div>
                 <div>
@@ -151,17 +150,17 @@ export default function OnboardingModal() {
               </div>
             </div>
 
-            {/* Buttons */}
+            {/* Buttons using core theme styles */}
             <div className="flex items-center gap-3">
               <button 
                 onClick={handleSkip}
-                className="btn ghost flex-1 flex items-center justify-center cursor-pointer text-xs font-medium py-2 rounded-lg"
+                className="btn ghost flex-1 flex items-center justify-center cursor-pointer text-xs font-medium"
               >
                 Lewati Kiat
               </button>
               <button 
                 onClick={handleFinish}
-                className="btn primary flex-1 flex items-center justify-center cursor-pointer font-semibold py-2.5 rounded-lg"
+                className="btn primary flex-1 flex items-center justify-center cursor-pointer font-semibold"
               >
                 Mulai Chat
               </button>
