@@ -78,7 +78,7 @@ export default function SettingsModal() {
           </div>
 
           {/* Base URL */}
-          <div className="field">
+          <div className="field" style={{ display: 'none' }}>
             <label>Base URL</label>
             <input 
               className="inp" 
@@ -90,7 +90,7 @@ export default function SettingsModal() {
           </div>
 
           {/* API Key */}
-          <div className="field">
+          <div className="field" style={{ display: 'none' }}>
             <label>API Key <span className="text-txt-faint font-normal">(Paten / Tidak Bisa Diubah)</span></label>
             <div className="key-row">
               <input 
