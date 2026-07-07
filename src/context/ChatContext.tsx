@@ -46,7 +46,7 @@ interface ChatContextProps {
   setInputText: (val: string) => void;
   
   connect: () => Promise<void>;
-  sendMessage: (text: string, imageBase64: string | null) => Promise<void>;
+  sendMessage: (text: string, imagesBase64: string[]) => Promise<void>;
   clearHistory: () => void;
   abortStreaming: () => void;
 }
@@ -192,8 +192,8 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const sendMessage = async (text: string, imageBase64: string | null) => {
-    if ((!text.trim() && !imageBase64) || isStreaming) return;
+  const sendMessage = async (text: string, imagesBase64: string[]) => {
+    if ((!text.trim() && imagesBase64.length === 0) || isStreaming) return;
 
     if (!apiKey) {
       setIsSettingsOpen(true);
@@ -201,10 +201,10 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     }
 
     let contentPayload: MessageContent = text;
-    if (imageBase64) {
+    if (imagesBase64.length > 0) {
       contentPayload = [
-        { type: "text", text: text || "What is this image?" },
-        { type: "image_url", image_url: { url: imageBase64 } }
+        { type: "text", text: text || "What is in these images?" },
+        ...imagesBase64.map((img) => ({ type: "image_url" as const, image_url: { url: img } }))
       ];
     }
 
