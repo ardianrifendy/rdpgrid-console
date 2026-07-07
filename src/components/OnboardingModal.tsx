@@ -45,40 +45,37 @@ export default function OnboardingModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0e1016]/75 backdrop-blur-md p-4 animate-fade-in">
-      {/* Main Card */}
-      <div className="w-full max-w-md bg-[#161a23] border border-[#252b38] rounded-2xl p-8 shadow-[0_20px_50px_rgba(0,0,0,0.65)] flex flex-col animate-rise relative">
-        
-        {/* Glow effect in background */}
-        <div className="absolute -top-12 -left-12 w-36 h-36 bg-signal/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute -bottom-12 -right-12 w-36 h-36 bg-signal/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div className="onboarding-overlay">
+      <div className="onboarding-card">
+        <div className="onboarding-glow-1"></div>
+        <div className="onboarding-glow-2"></div>
 
         {step === 1 ? (
-          <div className="w-full flex flex-col items-center text-center">
-            {/* Unique onboarding-logo div to prevent global .logo conflict */}
-            <div className="h-16 w-16 rounded-2xl bg-signal/10 flex items-center justify-center border border-signal/25 mb-5 shadow-[0_0_24px_rgba(124,140,255,0.15)]">
-              <svg viewBox="0 0 24 24" fill="none" stroke="var(--signal)" strokeWidth="2.2" className="h-8 w-8">
+          <div className="onboarding-content-wrapper animate-fade-in">
+            {/* Unique onboarding-logo box */}
+            <div className="onboarding-logo-container">
+              <svg viewBox="0 0 24 24" fill="none" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M4 7h16M4 12h16M4 17h16M8 4v16M16 4v16"/>
               </svg>
             </div>
 
             {/* Brand Title */}
-            <h1 className="text-[26px] font-bold font-sans text-txt tracking-tight leading-none mb-2">
+            <h1 className="onboarding-title">
               BTG.AI Console
             </h1>
             
             {/* Credit developer */}
-            <p className="text-[11px] text-signal font-semibold tracking-widest uppercase mb-7">
+            <p className="onboarding-subtitle">
               Developed by Rifendy Ardian
             </p>
 
             {/* Form */}
-            <div className="field w-full text-left mb-7">
-              <label className="block text-[10.5px] font-bold font-mono text-txt-dim uppercase tracking-wider mb-2">
+            <div className="onboarding-field">
+              <label>
                 Siapa nama Anda?
               </label>
               <input 
-                className="inp w-full focus:border-signal focus:ring-2 focus:ring-signal-soft" 
+                className="inp focus:border-signal" 
                 type="text"
                 placeholder="Masukkan nama sapaan Anda..." 
                 maxLength={24}
@@ -91,7 +88,7 @@ export default function OnboardingModal() {
               />
             </div>
 
-            {/* CTA Button using core classes */}
+            {/* CTA Button */}
             <button 
               onClick={handleNext}
               className="btn primary full flex items-center justify-center gap-1.5 font-semibold cursor-pointer"
@@ -103,55 +100,55 @@ export default function OnboardingModal() {
             </button>
           </div>
         ) : (
-          <div className="w-full flex flex-col">
-            <h2 className="text-xl font-bold font-sans text-txt mb-2 flex items-center gap-2">
+          <div className="onboarding-step2-wrapper animate-fade-in">
+            <h2 className="onboarding-step2-title">
               💡 Kiat Penggunaan
             </h2>
-            <p className="text-xs text-txt-dim mb-6 leading-relaxed">
+            <p className="onboarding-step2-desc">
               Berikut beberapa kiat penting untuk memaksimalkan penggunaan BTG.AI Console:
             </p>
 
             {/* Guideline list */}
-            <div className="flex flex-col gap-4.5 mb-8">
-              <div className="flex items-start gap-3.5">
-                <div className="h-8 w-8 rounded-xl bg-panel-2 border border-line flex items-center justify-center flex-none text-base">
+            <div className="onboarding-list">
+              <div className="onboarding-item">
+                <div className="onboarding-item-icon">
                   🤖
                 </div>
-                <div>
-                  <h3 className="text-xs font-bold text-txt">Pilihan Model AI</h3>
-                  <p className="text-[11px] text-txt-dim leading-normal mt-0.5">
+                <div className="onboarding-item-text">
+                  <h3>Pilihan Model AI</h3>
+                  <p>
                     Gunakan tombol dropdown model di pojok kanan bawah input bar untuk berganti model secara instan.
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3.5">
-                <div className="h-8 w-8 rounded-xl bg-panel-2 border border-line flex items-center justify-center flex-none text-base">
+              <div className="onboarding-item">
+                <div className="onboarding-item-icon">
                   ⌨️
                 </div>
-                <div>
-                  <h3 className="text-xs font-bold text-txt">Navigasi Input</h3>
-                  <p className="text-[11px] text-txt-dim leading-normal mt-0.5">
+                <div className="onboarding-item-text">
+                  <h3>Navigasi Input</h3>
+                  <p>
                     Tekan <kbd className="px-1.5 py-0.5 bg-[#252b38] rounded text-[10px] font-mono text-txt">Enter</kbd> untuk mengirim pesan, dan <kbd className="px-1.5 py-0.5 bg-[#252b38] rounded text-[10px] font-mono text-txt">Shift + Enter</kbd> untuk membuat baris baru.
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3.5">
-                <div className="h-8 w-8 rounded-xl bg-panel-2 border border-line flex items-center justify-center flex-none text-base">
+              <div className="onboarding-item">
+                <div className="onboarding-item-icon">
                   🖼️
                 </div>
-                <div>
-                  <h3 className="text-xs font-bold text-txt">Unggah Multi Gambar</h3>
-                  <p className="text-[11px] text-txt-dim leading-normal mt-0.5">
+                <div className="onboarding-item-text">
+                  <h3>Unggah Multi Gambar</h3>
+                  <p>
                     Anda bisa mengunggah beberapa gambar sekaligus untuk dianalisis oleh model yang mendukung Vision.
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Buttons using core theme styles */}
-            <div className="flex items-center gap-3">
+            {/* Buttons */}
+            <div className="onboarding-buttons">
               <button 
                 onClick={handleSkip}
                 className="btn ghost flex-1 flex items-center justify-center cursor-pointer text-xs font-medium"
