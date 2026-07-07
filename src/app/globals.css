@@ -1457,4 +1457,40 @@ input[type=range] {
   width: 100%;
 }
 
+/* Tour Buttons */
+.tour-btn {
+  border-radius: 6px;
+  padding: 5px 11px;
+  font-family: var(--body);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .15s;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tour-btn.primary {
+  background: linear-gradient(135deg, var(--signal), #5a67d8);
+  color: #fff;
+}
+
+.tour-btn.primary:hover {
+  box-shadow: 0 4px 12px rgba(124, 140, 255, .25);
+}
+
+.tour-btn.ghost {
+  background: transparent;
+  color: var(--txt-dim);
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+.tour-btn.ghost:hover {
+  color: var(--txt);
+}
+
+
 

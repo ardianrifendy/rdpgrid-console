@@ -149,13 +149,13 @@ export default function TourOverlay() {
           <div className="flex items-center gap-2">
             <button 
               onClick={handleSkip} 
-              className="px-2.5 py-1 text-[11px] font-medium text-txt-dim hover:text-txt transition-colors cursor-pointer"
+              className="tour-btn ghost"
             >
               Lewati
             </button>
             <button 
               onClick={handleNext} 
-              className="btn primary py-1 px-3.5 text-[11.5px] font-semibold flex items-center gap-1 cursor-pointer"
+              className="tour-btn primary"
             >
               {step === steps.length ? "Selesai" : "Lanjut"}
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="h-3 w-3">
