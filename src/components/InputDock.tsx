@@ -112,36 +112,28 @@ export default function InputDock() {
 
       <div className="composer-in">
         {imagePreview && (
-          <div className="flex items-start mb-2.5 animate-rise">
-            <div className="relative w-36 h-28 bg-[#0b0d13] border border-line rounded-xl p-3 flex flex-col justify-between">
-              {/* Close button */}
+          <div className="flex items-center mb-2 animate-rise">
+            <div className="inline-flex items-center gap-2 bg-[#0b0d13] border border-line rounded-lg px-2.5 py-1 text-xs">
+              {/* File Type Icon */}
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--signal)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 flex-none">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+              
+              {/* Filename */}
+              <span className="font-mono text-txt truncate max-w-[200px]" title="attachment.png">
+                attachment.png
+              </span>
+              
+              {/* Close Button */}
               <button 
                 onClick={removeImage}
-                className="absolute top-2 right-2 h-5 w-5 rounded-full bg-line hover:bg-line-2 text-txt-dim hover:text-txt flex items-center justify-center text-[10px] font-bold transition-colors cursor-pointer"
+                className="h-4 w-4 rounded-full hover:bg-line-2 text-txt-dim hover:text-txt flex items-center justify-center text-[9px] font-bold transition-colors cursor-pointer ml-1"
                 title="Hapus"
               >
                 ✕
               </button>
-              
-              {/* File Info */}
-              <div className="flex flex-col gap-0.5 overflow-hidden">
-                <span className="font-mono text-[11px] font-semibold text-txt truncate pr-4" title="attachment.png">
-                  attachment.png
-                </span>
-                <span className="text-[10px] text-txt-faint">
-                  Gambar Vision
-                </span>
-              </div>
-              
-              {/* Badge & Mini Thumbnail */}
-              <div className="flex items-end justify-between">
-                <span className="text-[9px] font-bold font-mono px-1.5 py-0.5 rounded bg-line-2 text-txt-dim uppercase">
-                  IMG
-                </span>
-                <div className="h-8 w-8 rounded border border-line-2 overflow-hidden flex-none">
-                  <img src={imagePreview} alt="Thumb" className="h-full w-full object-cover" />
-                </div>
-              </div>
             </div>
           </div>
         )}
