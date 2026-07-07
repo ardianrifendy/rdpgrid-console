@@ -54,7 +54,7 @@ export default function OnboardingModal() {
         <div className="absolute -bottom-12 -right-12 w-36 h-36 bg-signal/10 rounded-full blur-3xl pointer-events-none"></div>
 
         {step === 1 ? (
-          <div className="flex flex-col items-center text-center">
+          <div className="w-full flex flex-col items-center text-center">
             {/* Unique onboarding-logo div to prevent global .logo conflict */}
             <div className="h-16 w-16 rounded-2xl bg-signal/10 flex items-center justify-center border border-signal/25 mb-5 shadow-[0_0_24px_rgba(124,140,255,0.15)]">
               <svg viewBox="0 0 24 24" fill="none" stroke="var(--signal)" strokeWidth="2.2" className="h-8 w-8">
@@ -103,7 +103,7 @@ export default function OnboardingModal() {
             </button>
           </div>
         ) : (
-          <div className="flex flex-col">
+          <div className="w-full flex flex-col">
             <h2 className="text-xl font-bold font-sans text-txt mb-2 flex items-center gap-2">
               💡 Kiat Penggunaan
             </h2>
