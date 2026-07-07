@@ -102,24 +102,6 @@ export default function InputDock() {
 
   return (
     <div className="composer">
-      {imagePreview && (
-        <div className="max-w-[760px] mx-auto mb-2 flex items-start gap-2 animate-rise">
-          <div className="relative group">
-            <img 
-              src={imagePreview} 
-              alt="Attachment Preview" 
-              className="h-16 w-16 object-cover rounded-lg border border-line-2 shadow-md"
-            />
-            <button 
-              onClick={removeImage}
-              className="absolute -top-1.5 -right-1.5 h-5 w-5 rounded-full bg-danger text-white flex items-center justify-center text-[10px] font-bold hover:scale-110 transition-transform cursor-pointer border border-ink"
-            >
-              ✕
-            </button>
-          </div>
-        </div>
-      )}
-
       <input 
         type="file" 
         accept="image/*" 
@@ -129,6 +111,41 @@ export default function InputDock() {
       />
 
       <div className="composer-in">
+        {imagePreview && (
+          <div className="flex items-start mb-2.5 animate-rise">
+            <div className="relative w-36 h-28 bg-[#0b0d13] border border-line rounded-xl p-3 flex flex-col justify-between">
+              {/* Close button */}
+              <button 
+                onClick={removeImage}
+                className="absolute top-2 right-2 h-5 w-5 rounded-full bg-line hover:bg-line-2 text-txt-dim hover:text-txt flex items-center justify-center text-[10px] font-bold transition-colors cursor-pointer"
+                title="Hapus"
+              >
+                ✕
+              </button>
+              
+              {/* File Info */}
+              <div className="flex flex-col gap-0.5 overflow-hidden">
+                <span className="font-mono text-[11px] font-semibold text-txt truncate pr-4" title="attachment.png">
+                  attachment.png
+                </span>
+                <span className="text-[10px] text-txt-faint">
+                  Gambar Vision
+                </span>
+              </div>
+              
+              {/* Badge & Mini Thumbnail */}
+              <div className="flex items-end justify-between">
+                <span className="text-[9px] font-bold font-mono px-1.5 py-0.5 rounded bg-line-2 text-txt-dim uppercase">
+                  IMG
+                </span>
+                <div className="h-8 w-8 rounded border border-line-2 overflow-hidden flex-none">
+                  <img src={imagePreview} alt="Thumb" className="h-full w-full object-cover" />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         <textarea 
           id="input" 
           ref={textareaRef}
