@@ -3,12 +3,36 @@
 import { useChat } from "@/context/ChatContext";
 
 export default function Header() {
-  const { statusState, statusText, setIsSettingsOpen } = useChat();
+  const { statusState, statusText, setIsSettingsOpen, isMobileSidebarOpen, setIsMobileSidebarOpen } = useChat();
 
   return (
-    <header>
-      {/* Empty space where brand used to be, to push status to the right */}
-      <div className="flex-1"></div>
+    <header className="flex items-center justify-between px-4 md:px-5 h-[59px] border-b border-[var(--line)] bg-[rgba(14,16,22,0.72)] backdrop-blur-md relative z-10 w-full">
+      {/* Mobile Branding & Hamburger */}
+      <div className="flex items-center gap-3 md:hidden">
+        <button 
+          onClick={() => setIsMobileSidebarOpen(true)}
+          className="p-1.5 hover:bg-[var(--panel-2)] rounded-lg text-[var(--txt-dim)] hover:text-[var(--txt)] transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <div className="brand flex items-center" style={{ gap: '8px' }}>
+          <div className="logo flex-none" style={{ width: '24px', height: '24px' }}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round">
+              <path d="M4 7h16M4 12h16M4 17h16M8 4v16M16 4v16"/>
+            </svg>
+          </div>
+          <div style={{ lineHeight: '1.2' }}>
+            <span style={{ fontSize: '14px', fontWeight: 'bold' }}>BTG.AI</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Spacer for Desktop */}
+      <div className="hidden md:block flex-1"></div>
 
       <div className="status">
         <span className={`dot ${statusState === "on" ? "on" : statusState === "err" ? "err" : ""}`}></span>

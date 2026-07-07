@@ -4,14 +4,30 @@ import React, { useState } from "react";
 import { useChat } from "@/context/ChatContext";
 
 export default function Sidebar() {
-  const { clearHistory, messages, sessions, currentSessionId, loadSession } = useChat();
+  const { clearHistory, messages, sessions, currentSessionId, loadSession, isMobileSidebarOpen, setIsMobileSidebarOpen } = useChat();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <div 
-      className={`${isCollapsed ? 'w-[68px]' : 'w-[280px]'} flex-none border-r border-[var(--line)] bg-[var(--panel)] flex flex-col transition-all duration-300 ease-in-out overflow-hidden z-10 relative`}
-    >
-      {/* Header / Collapse */}
+    <>
+      {/* Mobile Overlay */}
+      {isMobileSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 z-40 md:hidden transition-opacity"
+          onClick={() => setIsMobileSidebarOpen(false)}
+        />
+      )}
+      
+      {/* Sidebar Container */}
+      <div 
+        className={`
+          ${isCollapsed ? 'md:w-[68px]' : 'md:w-[280px]'} 
+          w-[280px] flex-none border-r border-[var(--line)] bg-[var(--panel)] flex flex-col 
+          transition-all duration-300 ease-in-out overflow-hidden z-50 
+          fixed md:relative h-full top-0 left-0
+          ${isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+        `}
+      >
+        {/* Header / Collapse */}
       <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} p-[14px] flex-none border-b border-[var(--line)] h-[59px] transition-all duration-300`}>
         {!isCollapsed && (
           <div className="brand flex-none" style={{ gap: '10px' }}>
@@ -107,6 +123,7 @@ export default function Sidebar() {
           </button>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

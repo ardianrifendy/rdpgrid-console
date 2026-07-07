@@ -58,6 +58,7 @@ interface ChatContextProps {
   aiSkills: AISkills;
   sessions: ChatSession[];
   currentSessionId: string | null;
+  isMobileSidebarOpen: boolean;
   loadSession: (id: string) => void;
   deleteSession: (id: string) => void;
   
@@ -69,6 +70,7 @@ interface ChatContextProps {
   setMaxTokens: (val: number) => void;
   setUsername: (val: string) => void;
   setIsSettingsOpen: (val: boolean) => void;
+  setIsMobileSidebarOpen: (val: boolean) => void;
   setInputText: (val: string) => void;
   setIsOnboarded: (val: boolean) => void;
   setIsTourActive: (val: boolean) => void;
@@ -122,6 +124,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   const [abortController, setAbortController] = useState<AbortController | null>(null);
   const [isOnboarded, setIsOnboarded] = useState<boolean>(true);
   const [isTourActive, setIsTourActive] = useState<boolean>(false);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState<boolean>(false);
   const [sessions, setSessions] = useState<ChatSession[]>([]);
   const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
 
@@ -483,6 +486,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       inputText,
       isOnboarded,
       isTourActive,
+      isMobileSidebarOpen,
       aiSkills,
       sessions,
       currentSessionId,
@@ -495,6 +499,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       setMaxTokens: handleSetMaxTokens,
       setUsername: handleSetUsername,
       setIsSettingsOpen,
+      setIsMobileSidebarOpen,
       setInputText,
       setIsOnboarded,
       setIsTourActive,
