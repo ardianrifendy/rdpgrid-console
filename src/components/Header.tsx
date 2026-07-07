@@ -14,8 +14,8 @@ export default function Header() {
           </svg>
         </div>
         <div>
-          RDPGrid<br/>
-          <small>LiteLLM Console</small>
+          BTG.AI<br/>
+          <small>Little LLM Console</small>
         </div>
       </div>
 

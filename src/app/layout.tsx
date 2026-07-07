@@ -4,8 +4,8 @@ import SettingsModal from "@/components/SettingsModal";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "RDPGrid Console",
-  description: "LiteLLM Console",
+  title: "BTG.AI Console",
+  description: "Little LLM Console",
 };
 
 export default function RootLayout({

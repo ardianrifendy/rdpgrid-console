@@ -1,9 +1,9 @@
 @echo off
-title RDPGrid Console Launcher
+title BTG.AI Console Launcher
 cd /d "%~dp0"
 
 echo ==============================================
-echo  RDPGrid Console - Launching Local Server
+echo  BTG.AI Console - Launching Local Server
 echo ==============================================
 
 :: Check if node_modules exists, if not install dependencies
