@@ -97,6 +97,40 @@ function RenderMessageContent({ content }: { content: MessageContent }) {
   );
 }
 
+function CopyButton({ content }: { content: MessageContent }) {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = () => {
+    const textToCopy = typeof content === 'string' 
+      ? content 
+      : content.map(c => c.text || '').join('\n');
+    navigator.clipboard.writeText(textToCopy);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <button 
+      onClick={handleCopy}
+      className="p-1.5 mt-2 flex items-center gap-1.5 text-[11px] text-[var(--txt-dim)] hover:text-[var(--txt)] hover:bg-[var(--panel-2)] rounded-md transition-colors"
+      title="Salin pesan"
+    >
+      {copied ? (
+        <>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--mint)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span style={{ color: 'var(--mint)' }}>Tersalin</span>
+        </>
+      ) : (
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+      )}
+    </button>
+  );
+}
+
 export default function ChatThread() {
   const { messages, isStreaming, model, username, setInputText } = useChat();
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
@@ -181,7 +215,7 @@ export default function ChatThread() {
           return (
             <div key={index} className={`msg ${isUser ? "user" : "bot"}`}>
               <div className="av">{isUser ? "YOU" : "AI"}</div>
-              <div className="bubble">
+              <div className="bubble flex flex-col items-start">
                 <div className="who">{isUser ? "Kamu" : (model || "AI")}</div>
                 <div className="content">
                   <RenderMessageContent content={msg.content} />
@@ -189,6 +223,9 @@ export default function ChatThread() {
                     <span className="cursor"></span>
                   )}
                 </div>
+                {!isUser && (!isStreaming || index !== messages.length - 1) && (
+                  <CopyButton content={msg.content} />
+                )}
               </div>
             </div>
           );

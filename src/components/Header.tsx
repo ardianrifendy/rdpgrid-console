@@ -7,17 +7,8 @@ export default function Header() {
 
   return (
     <header>
-      <div className="brand">
-        <div className="logo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round">
-            <path d="M4 7h16M4 12h16M4 17h16M8 4v16M16 4v16"/>
-          </svg>
-        </div>
-        <div>
-          BTG.AI<br/>
-          <small>Little LLM Console</small>
-        </div>
-      </div>
+      {/* Empty space where brand used to be, to push status to the right */}
+      <div className="flex-1"></div>
 
       <div className="status">
         <span className={`dot ${statusState === "on" ? "on" : statusState === "err" ? "err" : ""}`}></span>

@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 BTG.AI - Little LLM Console
 
-## Getting Started
+Welcome to **BTG.AI**, your next-gen, highly aesthetic, and fully local/cloud-ready LLM console! 🌟 
+Built to bring the premium Gemini/ChatGPT vibes straight to your local setup, this Next.js-powered web app is designed for peak productivity, sleek aesthetics, and zero friction. 
 
-First, run the development server:
+## ✨ Features That SLAY
+- **Modern Gemini-style Sidebar:** Sleek, collapsible, and responsive sidebar for seamless workspace navigation.
+- **Persistent Chat History:** Close your browser, come back, and boom—your sessions are right where you left them, safely stored in local storage! 💾
+- **Copy with Polish:** A smooth, satisfying one-click copy button for AI responses with a cute "Tersalin" micro-animation. ✨
+- **Multimodal Ready:** Drag & drop images into the chat, powered by cutting-edge Vision models (via LiteLLM). 📸
+- **Symmetric, Grid-Based UI:** Perfectionist-approved 4x2 settings grid and symmetrical 2x2 AI template action buttons. 
+- **Lightning Fast:** Built on Next.js 16 / Turbopack with React Context for instantaneous state management without the bloat. ⚡
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🛠 Tech Stack
+- **Framework:** Next.js (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS + Custom CSS Variables (RDPGrid aesthetic)
+- **State Management:** React Context API
+- **API Integration:** LiteLLM / OpenAI-compatible endpoints
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎮 How to Run
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/yourusername/rdpgrid-console.git
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the dev server:
+   ```bash
+   npm run dev
+   ```
+4. Open [http://localhost:3000](http://localhost:3000) and vibe with the UI! 🎉
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔮 What's Next?
+- Dynamic model switching
+- Cloud sync for chat history
+- Custom AI personas
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+*Built with ❤️ and an obsession for perfect UI.*

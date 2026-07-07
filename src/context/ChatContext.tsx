@@ -9,6 +9,24 @@ export interface Message {
   content: MessageContent;
 }
 
+export interface ChatSession {
+  id: string;
+  title: string;
+  updatedAt: number;
+  messages: Message[];
+}
+
+export interface AISkills {
+  coding: boolean;
+  logicMath: boolean;
+  creative: boolean;
+  security: boolean;
+  translation: boolean;
+  dataAnalysis: boolean;
+  brainstorm: boolean;
+  academic: boolean;
+}
+
 interface ChatConfig {
   baseUrl: string;
   apiKey: string;
@@ -17,6 +35,7 @@ interface ChatConfig {
   temperature: number;
   maxTokens: number;
   username: string;
+  aiSkills: AISkills;
 }
 
 interface ChatContextProps {
@@ -36,6 +55,11 @@ interface ChatContextProps {
   inputText: string;
   isOnboarded: boolean;
   isTourActive: boolean;
+  aiSkills: AISkills;
+  sessions: ChatSession[];
+  currentSessionId: string | null;
+  loadSession: (id: string) => void;
+  deleteSession: (id: string) => void;
   
   setBaseUrl: (val: string) => void;
   setApiKey: (val: string) => void;
@@ -48,6 +72,7 @@ interface ChatContextProps {
   setInputText: (val: string) => void;
   setIsOnboarded: (val: boolean) => void;
   setIsTourActive: (val: boolean) => void;
+  setAiSkills: (val: AISkills) => void;
   
   connect: () => Promise<void>;
   sendMessage: (text: string, imagesBase64: string[]) => Promise<void>;
@@ -62,7 +87,17 @@ const DEFAULT_CONFIG: ChatConfig = {
   systemPrompt: "",
   temperature: 0.3,
   maxTokens: 2048,
-  username: ""
+  username: "",
+  aiSkills: {
+    coding: false,
+    logicMath: false,
+    creative: false,
+    security: false,
+    translation: false,
+    dataAnalysis: false,
+    brainstorm: false,
+    academic: false
+  }
 };
 
 const ChatContext = createContext<ChatContextProps | undefined>(undefined);
@@ -75,6 +110,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   const [temperature, setTemperature] = useState(DEFAULT_CONFIG.temperature);
   const [maxTokens, setMaxTokens] = useState(DEFAULT_CONFIG.maxTokens);
   const [username, setUsername] = useState(DEFAULT_CONFIG.username);
+  const [aiSkills, setAiSkills] = useState<AISkills>(DEFAULT_CONFIG.aiSkills);
   
   const [messages, setMessages] = useState<Message[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
@@ -86,6 +122,8 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   const [abortController, setAbortController] = useState<AbortController | null>(null);
   const [isOnboarded, setIsOnboarded] = useState<boolean>(true);
   const [isTourActive, setIsTourActive] = useState<boolean>(false);
+  const [sessions, setSessions] = useState<ChatSession[]>([]);
+  const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
 
   // Load from local storage
   useEffect(() => {
@@ -99,15 +137,36 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
         if (parsed.temp !== undefined) setTemperature(Number(parsed.temp));
         if (parsed.maxTokens !== undefined) setMaxTokens(Number(parsed.maxTokens));
         if (parsed.username !== undefined) setUsername(parsed.username);
+        if (parsed.aiSkills !== undefined) setAiSkills(parsed.aiSkills);
       }
       const onboarded = localStorage.getItem("rdpgrid_onboarded");
       if (onboarded !== "true") {
         setIsOnboarded(false);
       }
+      const savedSessions = localStorage.getItem("rdpgrid_sessions");
+      if (savedSessions) {
+        setSessions(JSON.parse(savedSessions));
+      }
+      const savedCurrentSessionId = localStorage.getItem("rdpgrid_current_session");
+      if (savedCurrentSessionId) {
+        setCurrentSessionId(savedCurrentSessionId);
+      }
     } catch (e) {
       console.error("Failed to load local storage configurations", e);
     }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("rdpgrid_sessions", JSON.stringify(sessions));
+  }, [sessions]);
+
+  useEffect(() => {
+    if (currentSessionId) {
+      localStorage.setItem("rdpgrid_current_session", currentSessionId);
+    } else {
+      localStorage.removeItem("rdpgrid_current_session");
+    }
+  }, [currentSessionId]);
 
   // Save changes to local storage
   const saveConfig = useCallback((key: keyof ChatConfig, value: any) => {
@@ -128,6 +187,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   const handleSetTemperature = (val: number) => { setTemperature(val); saveConfig("temperature", val); };
   const handleSetMaxTokens = (val: number) => { setMaxTokens(val); saveConfig("maxTokens", val); };
   const handleSetUsername = (val: string) => { setUsername(val); saveConfig("username", val); };
+  const handleSetAiSkills = (val: AISkills) => { setAiSkills(val); saveConfig("aiSkills", val); };
 
   const connect = useCallback(async () => {
     const trimmedBaseUrl = baseUrl.trim().replace(/\/+$/, "");
@@ -194,6 +254,22 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
   const clearHistory = () => {
     setMessages([]);
+    setCurrentSessionId(null);
+  };
+
+  const loadSession = (id: string) => {
+    const session = sessions.find(s => s.id === id);
+    if (session) {
+      setMessages(session.messages);
+      setCurrentSessionId(session.id);
+    }
+  };
+
+  const deleteSession = (id: string) => {
+    setSessions(prev => prev.filter(s => s.id !== id));
+    if (currentSessionId === id) {
+      clearHistory();
+    }
   };
 
   const abortStreaming = () => {
@@ -223,13 +299,63 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     setMessages(updatedMessages);
     setIsStreaming(true);
 
+    let activeSessionId = currentSessionId;
+    if (!activeSessionId) {
+      activeSessionId = Date.now().toString();
+      setCurrentSessionId(activeSessionId);
+      const title = typeof text === "string" && text.trim() ? text.trim().substring(0, 30) + "..." : "Chat dengan Gambar";
+      const finalId = activeSessionId;
+      setSessions(prev => [{ id: finalId, title, updatedAt: Date.now(), messages: updatedMessages }, ...prev]);
+    } else {
+      const finalId = activeSessionId;
+      setSessions(prev => prev.map(s => s.id === finalId ? { ...s, messages: updatedMessages, updatedAt: Date.now() } : s));
+    }
+
     const controller = new AbortController();
     setAbortController(controller);
 
     // Build standard payload
     const payload: Message[] = [];
-    if (systemPrompt.trim()) {
-      payload.push({ role: "system", content: systemPrompt });
+    let finalSystemPrompt = systemPrompt.trim();
+    
+    // Add active skills instructions
+    const activeSkillsInstructions: string[] = [];
+    if (aiSkills.coding) {
+      activeSkillsInstructions.push("Pakar Pemrograman: Berikan solusi kode yang bersih, aman, terdokumentasi, efisien, dan ikuti best practices terbaru.");
+    }
+    if (aiSkills.logicMath) {
+      activeSkillsInstructions.push("Logika & Matematika: Gunakan pendekatan analitis, matematis, dan logis yang mendalam serta runtut dalam memecahkan masalah.");
+    }
+    if (aiSkills.creative) {
+      activeSkillsInstructions.push("Kreatif & Copywriting: Gunakan gaya bahasa yang indah, persuasif, dan estetis untuk membuat konten tulisan/copywriting.");
+    }
+    if (aiSkills.security) {
+      activeSkillsInstructions.push("Audit Keamanan: Evaluasi keamanan siber dari kode/data yang diberikan, temukan kerentanan (vulnerability), dan berikan rekomendasi proteksi.");
+    }
+    if (aiSkills.translation) {
+      activeSkillsInstructions.push("Penerjemah & Lokalisasi: Terjemahkan teks secara natural, sesuaikan dengan dialek lokal/budaya target, bukan sekadar kata per kata.");
+    }
+    if (aiSkills.dataAnalysis) {
+      activeSkillsInstructions.push("Analisis Data: Analisis informasi/data yang ada, temukan pola penting, dan sajikan ringkasan eksekutif yang terstruktur.");
+    }
+    if (aiSkills.brainstorm) {
+      activeSkillsInstructions.push("Brainstorming Ide: Hasilkan berbagai opsi ide yang inovatif, unik, kreatif, dan tawarkan solusi alternatif out-of-the-box.");
+    }
+    if (aiSkills.academic) {
+      activeSkillsInstructions.push("Penulisan Akademis: Gunakan gaya bahasa formal, ilmiah, obyektif, terstruktur rapi, dan berbasis fakta/bukti.");
+    }
+
+    if (activeSkillsInstructions.length > 0) {
+      const skillsSection = "[INSTRUKSI KEMAMPUAN TAMBAHAN (Wajib Diikuti)]:\n- " + activeSkillsInstructions.join("\n- ");
+      if (finalSystemPrompt) {
+        finalSystemPrompt += "\n\n" + skillsSection;
+      } else {
+        finalSystemPrompt = skillsSection;
+      }
+    }
+
+    if (finalSystemPrompt) {
+      payload.push({ role: "system", content: finalSystemPrompt });
     }
     payload.push(...updatedMessages);
 
@@ -294,6 +420,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
                 }
                 return copy;
               });
+              // Note: We sync the final messages to the session in the finally block
             }
           } catch (err) {
             // Chunk line parsing error
@@ -328,6 +455,13 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setIsStreaming(false);
       setAbortController(null);
+      // Sync the final complete messages back to the active session
+      setMessages(currentMessages => {
+        setSessions(prev => prev.map(s => 
+          s.id === activeSessionId ? { ...s, messages: currentMessages, updatedAt: Date.now() } : s
+        ));
+        return currentMessages;
+      });
     }
   };
 
@@ -349,6 +483,9 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       inputText,
       isOnboarded,
       isTourActive,
+      aiSkills,
+      sessions,
+      currentSessionId,
       
       setBaseUrl: handleSetBaseUrl,
       setApiKey: handleSetApiKey,
@@ -361,11 +498,14 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       setInputText,
       setIsOnboarded,
       setIsTourActive,
+      setAiSkills: handleSetAiSkills,
       
       connect,
       sendMessage,
       clearHistory,
-      abortStreaming
+      abortStreaming,
+      loadSession,
+      deleteSession
     }}>
       {children}
     </ChatContext.Provider>
