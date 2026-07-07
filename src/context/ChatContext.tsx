@@ -65,7 +65,7 @@ const ChatContext = createContext<ChatContextProps | undefined>(undefined);
 
 export function ChatProvider({ children }: { children: React.ReactNode }) {
   const [baseUrl, setBaseUrl] = useState(DEFAULT_CONFIG.baseUrl);
-  const [apiKey, setApiKey] = useState(DEFAULT_CONFIG.apiKey);
+  const apiKey = "sk--VRdOaGubw--X7km0Bnvcw";
   const [model, setModel] = useState(DEFAULT_CONFIG.model);
   const [systemPrompt, setSystemPrompt] = useState(DEFAULT_CONFIG.systemPrompt);
   const [temperature, setTemperature] = useState(DEFAULT_CONFIG.temperature);
@@ -88,7 +88,6 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed.baseUrl !== undefined) setBaseUrl(parsed.baseUrl);
-        if (parsed.apiKey !== undefined) setApiKey(parsed.apiKey);
         if (parsed.model !== undefined) setModel(parsed.model);
         if (parsed.system !== undefined) setSystemPrompt(parsed.system);
         if (parsed.temp !== undefined) setTemperature(Number(parsed.temp));
@@ -113,7 +112,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const handleSetBaseUrl = (val: string) => { setBaseUrl(val); saveConfig("baseUrl", val); };
-  const handleSetApiKey = (val: string) => { setApiKey(val); saveConfig("apiKey", val); };
+  const handleSetApiKey = () => {};
   const handleSetModel = (val: string) => { setModel(val); saveConfig("model", val); };
   const handleSetSystemPrompt = (val: string) => { setSystemPrompt(val); saveConfig("systemPrompt", val); };
   const handleSetTemperature = (val: number) => { setTemperature(val); saveConfig("temperature", val); };

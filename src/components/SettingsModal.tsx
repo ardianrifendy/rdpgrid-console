@@ -91,14 +91,14 @@ export default function SettingsModal() {
 
           {/* API Key */}
           <div className="field">
-            <label>API Key</label>
+            <label>API Key <span className="text-txt-faint font-normal">(Paten / Tidak Bisa Diubah)</span></label>
             <div className="key-row">
               <input 
-                className="inp" 
+                className="inp opacity-60 cursor-not-allowed" 
                 type={showKey ? "text" : "password"}
                 placeholder="sk-…" 
                 value={apiKey}
-                onChange={(e) => setApiKey(e.target.value)}
+                readOnly
               />
               <button 
                 type="button"
