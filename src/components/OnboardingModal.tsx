@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useChat } from "@/context/ChatContext";
 
 export default function OnboardingModal() {
-  const { isOnboarded, setIsOnboarded, setUsername } = useChat();
+  const { isOnboarded, setIsOnboarded, setUsername, setIsTourActive } = useChat();
   const [step, setStep] = useState<1 | 2>(1);
   const [tempName, setTempName] = useState("");
 
@@ -35,6 +35,7 @@ export default function OnboardingModal() {
     // Mark as onboarded
     localStorage.setItem("rdpgrid_onboarded", "true");
     setIsOnboarded(true);
+    setIsTourActive(true);
   };
 
   const handleSkip = () => {
@@ -42,6 +43,7 @@ export default function OnboardingModal() {
     setUsername(finalName);
     localStorage.setItem("rdpgrid_onboarded", "true");
     setIsOnboarded(true);
+    setIsTourActive(true);
   };
 
   return (

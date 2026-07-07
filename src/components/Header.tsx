@@ -26,7 +26,7 @@ export default function Header() {
       
       <button 
         className="icon-btn" 
-        id="openSettings" 
+        id="tour-settings-btn" 
         title="Pengaturan" 
         onClick={() => setIsSettingsOpen(true)}
       >

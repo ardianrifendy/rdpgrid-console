@@ -159,6 +159,7 @@ export default function InputDock() {
           <button 
             onClick={handleFileClick}
             type="button"
+            id="tour-file-btn"
             className="icon-btn h-9 w-9 border-none bg-transparent hover:bg-panel-2 rounded-lg mr-1 cursor-pointer flex items-center justify-center"
             title="Unggah Gambar"
           >
@@ -168,7 +169,7 @@ export default function InputDock() {
           </button>
 
           {/* Model Selector Dropdown */}
-          <div className={`model-select ${isMenuOpen ? "open" : ""}`} ref={menuRef}>
+          <div className={`model-select ${isMenuOpen ? "open" : ""}`} ref={menuRef} id="tour-model-select">
             <div 
               className="model-select-btn" 
               onClick={() => setIsMenuOpen(!isMenuOpen)}

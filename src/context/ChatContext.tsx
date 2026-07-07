@@ -35,6 +35,7 @@ interface ChatContextProps {
   statusText: string;
   inputText: string;
   isOnboarded: boolean;
+  isTourActive: boolean;
   
   setBaseUrl: (val: string) => void;
   setApiKey: (val: string) => void;
@@ -46,6 +47,7 @@ interface ChatContextProps {
   setIsSettingsOpen: (val: boolean) => void;
   setInputText: (val: string) => void;
   setIsOnboarded: (val: boolean) => void;
+  setIsTourActive: (val: boolean) => void;
   
   connect: () => Promise<void>;
   sendMessage: (text: string, imagesBase64: string[]) => Promise<void>;
@@ -83,6 +85,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   const [inputText, setInputText] = useState("");
   const [abortController, setAbortController] = useState<AbortController | null>(null);
   const [isOnboarded, setIsOnboarded] = useState<boolean>(true);
+  const [isTourActive, setIsTourActive] = useState<boolean>(false);
 
   // Load from local storage
   useEffect(() => {
@@ -345,6 +348,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       statusText,
       inputText,
       isOnboarded,
+      isTourActive,
       
       setBaseUrl: handleSetBaseUrl,
       setApiKey: handleSetApiKey,
@@ -356,6 +360,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       setIsSettingsOpen,
       setInputText,
       setIsOnboarded,
+      setIsTourActive,
       
       connect,
       sendMessage,
