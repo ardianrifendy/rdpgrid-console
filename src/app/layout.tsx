@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ChatProvider } from "@/context/ChatContext";
 import SettingsModal from "@/components/SettingsModal";
+import OnboardingModal from "@/components/OnboardingModal";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export default function RootLayout({
         <ChatProvider>
           {children}
           <SettingsModal />
+          <OnboardingModal />
         </ChatProvider>
       </body>
     </html>

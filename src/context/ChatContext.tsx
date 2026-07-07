@@ -34,6 +34,7 @@ interface ChatContextProps {
   statusState: "" | "on" | "err";
   statusText: string;
   inputText: string;
+  isOnboarded: boolean;
   
   setBaseUrl: (val: string) => void;
   setApiKey: (val: string) => void;
@@ -44,6 +45,7 @@ interface ChatContextProps {
   setUsername: (val: string) => void;
   setIsSettingsOpen: (val: boolean) => void;
   setInputText: (val: string) => void;
+  setIsOnboarded: (val: boolean) => void;
   
   connect: () => Promise<void>;
   sendMessage: (text: string, imagesBase64: string[]) => Promise<void>;
@@ -80,6 +82,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   const [statusText, setStatusText] = useState("Belum konek");
   const [inputText, setInputText] = useState("");
   const [abortController, setAbortController] = useState<AbortController | null>(null);
+  const [isOnboarded, setIsOnboarded] = useState<boolean>(true);
 
   // Load from local storage
   useEffect(() => {
@@ -93,6 +96,10 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
         if (parsed.temp !== undefined) setTemperature(Number(parsed.temp));
         if (parsed.maxTokens !== undefined) setMaxTokens(Number(parsed.maxTokens));
         if (parsed.username !== undefined) setUsername(parsed.username);
+      }
+      const onboarded = localStorage.getItem("rdpgrid_onboarded");
+      if (onboarded !== "true") {
+        setIsOnboarded(false);
       }
     } catch (e) {
       console.error("Failed to load local storage configurations", e);
@@ -337,6 +344,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       statusState,
       statusText,
       inputText,
+      isOnboarded,
       
       setBaseUrl: handleSetBaseUrl,
       setApiKey: handleSetApiKey,
@@ -347,6 +355,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       setUsername: handleSetUsername,
       setIsSettingsOpen,
       setInputText,
+      setIsOnboarded,
       
       connect,
       sendMessage,
