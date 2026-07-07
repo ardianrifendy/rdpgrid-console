@@ -1,43 +1,71 @@
-# 🚀 BTG.AI - Little LLM Console
+<div align="center">
+  <h1>🚀 BTG.AI - Little LLM Console</h1>
+  <p><strong>Console LLM Paling Estetik, Simetris, & Sat-Set buat Local Workspace Kamu! 🌟</strong></p>
+  
+  <p>
+    <a href="#-kenapa-harus-btgai">Kenapa BTG.AI?</a> •
+    <a href="#-fitur-utama-yang-bikin-candu">Fitur Utama</a> •
+    <a href="#-tech-stack">Tech Stack</a> •
+    <a href="#-cara-menjalankan">Cara Install</a>
+  </p>
+</div>
 
-Welcome to **BTG.AI**, your next-gen, highly aesthetic, and fully local/cloud-ready LLM console! 🌟 
-Built to bring the premium Gemini/ChatGPT vibes straight to your local setup, this Next.js-powered web app is designed for peak productivity, sleek aesthetics, and zero friction. 
+---
 
-## ✨ Features That SLAY
-- **Modern Gemini-style Sidebar:** Sleek, collapsible, and responsive sidebar for seamless workspace navigation.
-- **Persistent Chat History:** Close your browser, come back, and boom—your sessions are right where you left them, safely stored in local storage! 💾
-- **Copy with Polish:** A smooth, satisfying one-click copy button for AI responses with a cute "Tersalin" micro-animation. ✨
-- **Multimodal Ready:** Drag & drop images into the chat, powered by cutting-edge Vision models (via LiteLLM). 📸
-- **Symmetric, Grid-Based UI:** Perfectionist-approved 4x2 settings grid and symmetrical 2x2 AI template action buttons. 
-- **Lightning Fast:** Built on Next.js 16 / Turbopack with React Context for instantaneous state management without the bloat. ⚡
+## 🔥 Kenapa Harus BTG.AI?
+
+Bosan dengan UI AI yang kaku dan gitu-gitu aja? **BTG.AI (Little LLM Console)** hadir buat ngasih kamu *experience* ala ChatGPT / Gemini versi premium tapi langsung jalan di komputer lokal kamu!
+
+UI-nya dirancang dengan obsesi tingkat tinggi terhadap **simetri** dan **estetika**. Gak cuma enak dilihat, aplikasinya juga sangat responsif, mendukung riwayat chat (*persistent history*), dan siap meladeni teks maupun gambar (*multimodal-ready*) lewat API LiteLLM.
+
+## ✨ Fitur Utama yang Bikin Candu
+
+- 🎨 **Layout Ala Gemini (Super Clean!):** Mengusung desain *sidebar* modern yang bisa di-*collapse*, memberikan ruang obrolan yang lega tanpa menghilangkan akses kontrol.
+- 💾 **Riwayat Chat Abadi:** Gak sengaja ketutup tab-nya? Tenang! Semua sesi *chat* kamu otomatis tersimpan di memori *browser* (*local storage*). Lanjut ngobrol kapan aja!
+- 📋 **Satu Klik, Beres:** Nemu kode atau balasan AI yang bagus? Klik aja tombol "Copy" di bawah pesannya. Ada animasi centang kecil yang *satisfying* pas di-klik! ✅
+- 📸 **Multimodal Vision:** Tarik gambar ke dalam obrolan, dan biarkan AI menganalisanya secara visual (menggunakan model VLM).
+- 📐 **Simetri Sempurna:** *Button* rekomendasi topik dan *grid settings* dibuat sejajar sempurna. *Chef's kiss!* 🤌
+- ⚡ **Tanpa Lemot:** *React Context* dan *Next.js Turbopack* bikin perpindahan sesi dan pengiriman pesan terasa instan tanpa interupsi *loading* yang ngeselin.
 
 ## 🛠 Tech Stack
-- **Framework:** Next.js (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS + Custom CSS Variables (RDPGrid aesthetic)
-- **State Management:** React Context API
-- **API Integration:** LiteLLM / OpenAI-compatible endpoints
 
-## 🎮 How to Run
+Bukan asal bikin, aplikasinya ditenagai oleh tumpukan teknologi modern:
+- **Core:** [Next.js 16 (App Router)](https://nextjs.org/)
+- **Bahasa:** [TypeScript](https://www.typescriptlang.org/) (Biar minim error & gampang di-maintain)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/) + Custom CSS Variables ala RDPGrid
+- **State:** React Context API (Ringan, tanpa *Redux* yang ribet)
+- **AI Engine:** Kompatibel penuh dengan *endpoint* OpenAI / LiteLLM
 
-1. Clone the repo:
+---
+
+## 🎮 Cara Menjalankan
+
+Gampang banget kok, cukup 4 langkah simpel ini:
+
+1. **Clone repository ini** ke komputer kamu:
    ```bash
-   git clone https://github.com/yourusername/rdpgrid-console.git
+   git clone https://github.com/ardianrifendy/rdpgrid-console.git
+   cd rdpgrid-console
    ```
-2. Install dependencies:
+2. **Install semua library-nya:**
    ```bash
    npm install
    ```
-3. Start the dev server:
+3. **Nyalakan mesin roketnya (Dev Server):**
    ```bash
    npm run dev
    ```
-4. Open [http://localhost:3000](http://localhost:3000) and vibe with the UI! 🎉
-
-## 🔮 What's Next?
-- Dynamic model switching
-- Cloud sync for chat history
-- Custom AI personas
+4. **Gas Ngobrol!** Buka [http://localhost:3000](http://localhost:3000) di browser favorit kamu dan nikmati interaksinya! 🎉
 
 ---
-*Built with ❤️ and an obsession for perfect UI.*
+
+## 🔮 Rencana ke Depan (Roadmap)
+- [ ] Opsi penggantian Model/Engine AI langsung dari UI
+- [ ] Sinkronisasi riwayat chat via *Cloud* (Firebase/Supabase)
+- [ ] Kustomisasi *Persona AI* sesuai selera
+
+<br/>
+
+<div align="center">
+  <sub>Dibangun dengan ❤️ dan obsesi untuk <i>UI/UX</i> yang sempurna.</sub>
+</div>
