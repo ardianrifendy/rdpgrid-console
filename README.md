@@ -57,6 +57,11 @@ Gampang banget kok, cukup 4 langkah simpel ini:
    ```
 4. **Gas Ngobrol!** Buka [http://localhost:3000](http://localhost:3000) di browser favorit kamu dan nikmati interaksinya! 🎉
 
+### 🚀 Deploy ke Vercel (1-Click)
+Gak mau ribet install lokal? Langsung aja deploy ke cloud gratis pakai Vercel:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fardianrifendy%2Frdpgrid-console)
+
 ---
 
 ## 🔮 Rencana ke Depan (Roadmap)
