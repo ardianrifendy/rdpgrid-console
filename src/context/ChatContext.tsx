@@ -60,7 +60,7 @@ const DEFAULT_CONFIG: ChatConfig = {
   apiKey: "sk--VRdOaGubw--X7km0Bnvcw",
   model: "",
   systemPrompt: "",
-  temperature: 0.7,
+  temperature: 0.3,
   maxTokens: 2048,
   username: ""
 };

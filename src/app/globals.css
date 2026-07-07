@@ -796,6 +796,88 @@ textarea#input::placeholder {
   opacity: 1;
 }
 
+/* parameters selector inside composer */
+.param-select {
+  position: relative;
+}
+
+.param-select-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--txt-dim);
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 7px 11px;
+  cursor: pointer;
+  transition: .15s;
+}
+
+.param-select-btn:hover {
+  border-color: var(--line-2);
+  color: var(--txt);
+}
+
+.param-select-btn svg {
+  width: 14px;
+  height: 14px;
+  color: var(--txt-dim);
+  transition: .2s;
+}
+
+.param-select-btn:hover svg {
+  color: var(--txt);
+}
+
+.param-menu {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  width: 250px;
+  background: var(--panel-2);
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .45);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(6px);
+  transition: .18s;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.param-select.open .param-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+.param-menu .field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.param-menu label {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--txt-dim);
+  text-transform: uppercase;
+}
+
+.param-menu .slider-val {
+  color: var(--signal);
+  font-weight: 600;
+}
+
 .hint {
   max-width: 760px;
   margin: 8px auto 0;

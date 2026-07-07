@@ -12,20 +12,29 @@ export default function InputDock() {
     availableModels,
     setModel,
     inputText,
-    setInputText
+    setInputText,
+    temperature,
+    setTemperature,
+    maxTokens,
+    setMaxTokens
   } = useChat();
 
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isParamOpen, setIsParamOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const paramRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown on click outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsMenuOpen(false);
+      }
+      if (paramRef.current && !paramRef.current.contains(event.target as Node)) {
+        setIsParamOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -204,6 +213,113 @@ export default function InputDock() {
                     </div>
                   ))
                 )}
+              </div>
+            )}
+          </div>
+
+          {/* Parameter Preset Popover */}
+          <div className={`param-select ${isParamOpen ? "open" : ""}`} ref={paramRef}>
+            <div 
+              className="param-select-btn" 
+              onClick={() => setIsParamOpen(!isParamOpen)}
+              title="Pilih Mode Respon AI"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="4" y1="21" x2="4" y2="14" />
+                <line x1="4" y1="10" x2="4" y2="3" />
+                <line x1="12" y1="21" x2="12" y2="12" />
+                <line x1="12" y1="8" x2="12" y2="3" />
+                <line x1="20" y1="21" x2="20" y2="16" />
+                <line x1="20" y1="12" x2="20" y2="3" />
+                <line x1="1" y1="14" x2="7" y2="14" />
+                <line x1="9" y1="8" x2="15" y2="8" />
+                <line x1="17" y1="12" x2="23" y2="12" />
+              </svg>
+              <span>
+                {temperature === 0.9 && maxTokens === 2048 ? "Santai" :
+                 temperature === 0.3 && maxTokens === 2048 ? "Pro" :
+                 temperature === 0.7 && maxTokens === 4096 ? "Kompleks" :
+                 "Mode AI"}
+              </span>
+            </div>
+
+            {isParamOpen && (
+              <div className="param-menu block animate-rise min-w-[260px]">
+                <div className="text-[10px] font-mono text-txt-faint uppercase tracking-wider mb-2 px-1">
+                  Mode Respon AI
+                </div>
+                
+                {/* Santai Mode */}
+                <div 
+                  className={`model-opt flex flex-col items-start gap-1 p-2 rounded-lg cursor-pointer transition-colors ${
+                    temperature === 0.9 && maxTokens === 2048 ? "active" : ""
+                  }`}
+                  onClick={() => {
+                    setTemperature(0.9);
+                    setMaxTokens(2048);
+                    setIsParamOpen(false);
+                  }}
+                >
+                  <div className="flex items-center justify-between w-full font-bold text-[11.5px] font-mono">
+                    <span>☕ Santai (Kreatif)</span>
+                    {temperature === 0.9 && maxTokens === 2048 && (
+                      <svg className="h-3 w-3 text-signal" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <path d="M20 6L9 17l-5-5"/>
+                      </svg>
+                    )}
+                  </div>
+                  <div className="text-[10px] text-txt-dim leading-relaxed font-sans font-normal text-left">
+                    Lebih santai & kreatif, cocok untuk brainstorm ide & percakapan bebas.
+                  </div>
+                </div>
+
+                {/* Pro Mode */}
+                <div 
+                  className={`model-opt flex flex-col items-start gap-1 p-2 rounded-lg cursor-pointer transition-colors ${
+                    temperature === 0.3 && maxTokens === 2048 ? "active" : ""
+                  }`}
+                  onClick={() => {
+                    setTemperature(0.3);
+                    setMaxTokens(2048);
+                    setIsParamOpen(false);
+                  }}
+                >
+                  <div className="flex items-center justify-between w-full font-bold text-[11.5px] font-mono">
+                    <span>🎯 Pro (Presisi)</span>
+                    {temperature === 0.3 && maxTokens === 2048 && (
+                      <svg className="h-3 w-3 text-signal" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <path d="M20 6L9 17l-5-5"/>
+                      </svg>
+                    )}
+                  </div>
+                  <div className="text-[10px] text-txt-dim leading-relaxed font-sans font-normal text-left">
+                    Jawaban fokus & konsisten, cocok untuk coding & analisis data teknis.
+                  </div>
+                </div>
+
+                {/* Kompleks Mode */}
+                <div 
+                  className={`model-opt flex flex-col items-start gap-1 p-2 rounded-lg cursor-pointer transition-colors ${
+                    temperature === 0.7 && maxTokens === 4096 ? "active" : ""
+                  }`}
+                  onClick={() => {
+                    setTemperature(0.7);
+                    setMaxTokens(4096);
+                    setIsParamOpen(false);
+                  }}
+                >
+                  <div className="flex items-center justify-between w-full font-bold text-[11.5px] font-mono">
+                    <span>📚 Kompleks (Detail)</span>
+                    {temperature === 0.7 && maxTokens === 4096 && (
+                      <svg className="h-3 w-3 text-signal" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <path d="M20 6L9 17l-5-5"/>
+                      </svg>
+                    )}
+                  </div>
+                  <div className="text-[10px] text-txt-dim leading-relaxed font-sans font-normal text-left">
+                    Respon lebih panjang & detail, cocok untuk artikel & riset mendalam.
+                  </div>
+                </div>
               </div>
             )}
           </div>

@@ -22,17 +22,12 @@ export default function SettingsModal() {
     username,
     setUsername,
     availableModels,
-    connect,
     clearHistory
   } = useChat();
 
   const [showKey, setShowKey] = useState(false);
 
   if (!isSettingsOpen) return null;
-
-  const handleConnectClick = async () => {
-    await connect();
-  };
 
   const handleClearHistoryClick = () => {
     if (window.confirm("Hapus seluruh riwayat percakapan?")) {
@@ -111,16 +106,6 @@ export default function SettingsModal() {
             </div>
           </div>
 
-          {/* Connect Button */}
-          <button 
-            className="btn primary full cursor-pointer"
-            onClick={handleConnectClick}
-          >
-            Konek & ambil daftar model
-          </button>
-
-          <div className="divider"></div>
-
           {/* Model Pick Dropdown */}
           <div className="field">
             <label>Model</label>
@@ -130,7 +115,7 @@ export default function SettingsModal() {
               onChange={(e) => setModel(e.target.value)}
             >
               {availableModels.length === 0 ? (
-                <option value="">— konek dulu —</option>
+                <option value="">— mengambil model… —</option>
               ) : (
                 availableModels.map((m) => (
                   <option key={m} value={m}>
@@ -145,46 +130,44 @@ export default function SettingsModal() {
           <div className="field">
             <label>System Prompt <span>(opsional — atur peran model)</span></label>
             <textarea 
-              className="inp" 
+              className="inp mb-2" 
               placeholder="Contoh: Kamu asisten toko Bagaskara Cell. Jawab santai pakai Bahasa Indonesia."
               value={systemPrompt}
               onChange={(e) => setSystemPrompt(e.target.value)}
+              rows={3}
             />
-          </div>
-
-          {/* Temperature Slider */}
-          <div className="field">
-            <label>
-              Temperature 
-              <span className="slider-val">{temperature}</span>
-            </label>
-            <input 
-              type="range" 
-              min="0" 
-              max="2" 
-              step="0.1" 
-              value={temperature}
-              onChange={(e) => setTemperature(parseFloat(e.target.value))}
-            />
-            <div className="msg-help">
-              Makin rendah = makin fokus/konsisten. Makin tinggi = makin kreatif/liar.
+            
+            {/* Clickable Templates */}
+            <div className="flex flex-wrap gap-1.5 mt-1">
+              <button 
+                type="button"
+                className="px-2 py-0.5 text-[10px] rounded bg-[#1e2330] hover:bg-[#2b3245] border border-line text-txt-dim hover:text-txt cursor-pointer transition-colors"
+                onClick={() => setSystemPrompt("Kamu asisten toko Bagaskara Cell. Jawab santai pakai Bahasa Indonesia.")}
+              >
+                🤖 Asisten Toko
+              </button>
+              <button 
+                type="button"
+                className="px-2 py-0.5 text-[10px] rounded bg-[#1e2330] hover:bg-[#2b3245] border border-line text-txt-dim hover:text-txt cursor-pointer transition-colors"
+                onClick={() => setSystemPrompt("Kamu senior software engineer. Berikan solusi kode yang efisien, bersih, dan jelaskan konsepnya secara singkat.")}
+              >
+                💻 Senior Dev
+              </button>
+              <button 
+                type="button"
+                className="px-2 py-0.5 text-[10px] rounded bg-[#1e2330] hover:bg-[#2b3245] border border-line text-txt-dim hover:text-txt cursor-pointer transition-colors"
+                onClick={() => setSystemPrompt("Bertindak sebagai ahli bahasa Inggris. Koreksi grammar dan perbaiki kalimat saya agar terdengar lebih alami.")}
+              >
+                📝 Korektor Grammar
+              </button>
+              <button 
+                type="button"
+                className="px-2 py-0.5 text-[10px] rounded bg-[#1e2330] hover:bg-[#2b3245] border border-line text-txt-dim hover:text-txt cursor-pointer transition-colors"
+                onClick={() => setSystemPrompt("Terjemahkan teks yang diberikan ke Bahasa Indonesia (atau sebaliknya) secara natural, akurat, dan kontekstual.")}
+              >
+                🌐 Penerjemah
+              </button>
             </div>
-          </div>
-
-          {/* Max Tokens Slider */}
-          <div className="field">
-            <label>
-              Max Tokens 
-              <span className="slider-val">{maxTokens}</span>
-            </label>
-            <input 
-              type="range" 
-              min="256" 
-              max="8192" 
-              step="256" 
-              value={maxTokens}
-              onChange={(e) => setMaxTokens(parseInt(e.target.value))}
-            />
           </div>
 
           <div className="divider"></div>
